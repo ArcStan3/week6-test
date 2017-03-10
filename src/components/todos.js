@@ -50,3 +50,15 @@ export default Todos
 
 
 
+/*
+<div>
+<a href="#" onClick={this.props.nav('form')}>Add New Todo</a>
+<input className="toggle-all" type="checkbox" />
+  <label htmlFor="toggle-all">Mark all as complete</label>
+    <ul className="todo-list">
+      {map(li, this.state.todos)}
+    </ul>
+</div>
+*/
+
+

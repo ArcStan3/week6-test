@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 
-const { getTodos, getTodo, addTodo } = require('./dal.js')
+const { getTodos, getTodo, addTodo, deleteTodo, updateTodo } = require('./dal.js')
 const { split } = require('ramda')
 
 const bodyParser = require('body-parser')
@@ -28,17 +28,33 @@ app.get('/todos', function (req, res, next) {
   })
 })
 
-app.post('/todos', function (req, res, next) {
-  addTodo(req.body, function(err, dalResponse) {
-    if (err) return next(new HTTPError(err.status, err.message, err))
-    res.status(201).send(dalResponse)
+app.get('/todos/:id', function (req, res, next) {
+  getTodo(req.params.id, function(err, todos) {
+    if (err) next(new HTTPError(err.status, err.message, err))
+    res.status(200).send(todos)
   })
 })
 
+app.delete('/todos/:id', function (req, res, next) {
+  deleteTodo(req.params.id, function(err, todo) {
+    if (err) next(new HTTPError(err.status, err.message, err))
+    res.send(todo)
+  })
+})
 
+app.post('/todos', function (req, res, next) {
+  addTodo(req.body, function(err, todo) {
+    if (err) return next(new HTTPError(err.status, err.message, err))
+    res.status(201).send(todo)
+  })
+})
 
-
-
+app.put('/todos/:id', function (req, res, next) {
+  updateTodo(req.body, function (err, todo) {
+    if (err) return next(new HTTPError(err.status, err.message, err))
+    res.status(200).send(todo)
+  })
+})
 
 
 

@@ -29,18 +29,36 @@ function addTodo(todo, cb) {
   })
 }
 
+function updateTodo (todo, cb) {
+  db.put(todo, function(err, res) {
+    if (err) return cb(err)
+    cb(null, res)
+  })
+}
+
 function getTodo(todoId, cb) {
   db.get(todoId, function(err, todo) {
     if (err) return cb(err)
-    cb(null, todo.rows)
+    cb(null, todo)
   })
 }
-  
+
+function deleteTodo (id, cb) {
+  db.get(id, function (err, todo) {
+    if (err) return cb(err)
+    db.remove(todo, function (err, removedTodo) {
+      if (err) return cb(err)
+      cb(null, removedTodo)
+    })
+  })
+}
 
 const dal = {
   getTodo: getTodo,
   getTodos: getTodos,
-  addTodo: addTodo
+  addTodo: addTodo,
+  deleteTodo: deleteTodo,
+  updateTodo: updateTodo
 }
 
 module.exports = dal
