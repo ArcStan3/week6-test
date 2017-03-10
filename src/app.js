@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Todos from './components/todos'
 
 const url = 'http://localhost:8080/'
 
@@ -11,26 +12,7 @@ class App extends Component {
             <h1>todos</h1>
           </header>
           <section className="main">
-          <input className="toggle-all" type="checkbox" />
-            <label htmlFor="toggle-all">Mark all as complete</label>
-            <ul className="todo-list">
-              <li className="completed">
-                <div className="view">
-                  <input className="toggle" type="checkbox" defaultChecked />
-                  <label>Taste JavaScript</label>
-                  <button className="destroy" />
-                </div>
-                <input className="edit" defaultValue="Create a TodoMVC template" />
-              </li>
-              <li>
-                <div className="view">
-                  <input className="toggle" type="checkbox" />
-                  <label>Buy a unicorn</label>
-                  <button className="destroy" />
-                </div>
-                <input className="edit" defaultValue="Rule the web" />
-              </li>
-            </ul>
+          <Todos />
           </section>
         </section>
         <footer className="info">

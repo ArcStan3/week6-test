@@ -17,7 +17,7 @@ function getTodos(cb) {
     include_docs: true,
   }, function(err, todo) {
     if (err) return cb(err)
-    cb(null, todo.rows)
+    cb(null, map(obj => obj.doc, todo.rows))
   })
 }
 
