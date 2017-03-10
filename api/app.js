@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 
-const { getTodos, getTodo } = require('./dal.js')
+const { getTodos, getTodo, addTodo } = require('./dal.js')
 const { split } = require('ramda')
 
 const bodyParser = require('body-parser')
@@ -20,12 +20,21 @@ app.get('/', function(req, res) {
   res.send('Welcome to the Todos API!')
 })
 
+
 app.get('/todos', function (req, res, next) {
   getTodos(function (err, todos) {
     if (err) next(new HTTPError(err.status, err.message, err))
     res.status(200).send(todos)
   })
 })
+
+app.post('/todos', function (req, res, next) {
+  addTodo(req.body, function(err, dalResponse) {
+    if (err) return next(new HTTPError(err.status, err.message, err))
+    res.status(201).send(dalResponse)
+  })
+})
+
 
 
 

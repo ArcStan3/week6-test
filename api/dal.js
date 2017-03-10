@@ -21,6 +21,14 @@ function getTodos(cb) {
   })
 }
 
+function addTodo(todo, cb) {
+  todo.completed = false 
+  db.post(todo, function(err, res) {
+    if (err) return cb(err)
+    cb(null, res) 
+  })
+}
+
 function getTodo(todoId, cb) {
   db.get(todoId, function(err, todo) {
     if (err) return cb(err)
@@ -31,7 +39,8 @@ function getTodo(todoId, cb) {
 
 const dal = {
   getTodo: getTodo,
-  getTodos: getTodos
+  getTodos: getTodos,
+  addTodo: addTodo
 }
 
 module.exports = dal
